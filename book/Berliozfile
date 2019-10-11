@@ -1,0 +1,12 @@
+---
+kind: database
+cluster: addr
+name: book
+class: sql
+subClass: sql
+
+init: init.sql
+
+config:
+  engine: mysql
+  version: 5.7 
