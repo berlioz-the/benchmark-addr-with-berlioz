@@ -1,4 +1,5 @@
 const express = require('express');
+const berlioz = require('berlioz-sdk');
 
 const app = express();
 berlioz.setupExpress(app);
