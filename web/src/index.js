@@ -1,8 +1,11 @@
 const express = require('express');
-const berlioz = require('berlioz-sdk');
+const request = require('request-promise');
+const bodyParser = require('body-parser');
 
 const app = express();
-berlioz.setupExpress(app);
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
@@ -12,8 +15,12 @@ app.get('/', function (req, response) {
         entries: []
     };
 
-    var options = { url: '/entries', json: true, resolveWithFullResponse: true };
-    return berlioz.service('app').request(options)
+    var options = { 
+        url: `${process.env.BERLIOZ_CONSUMED_SERVICE_APP_URL}/entries`,
+        json: true,
+        resolveWithFullResponse: true
+    };
+    return request(options)
         .then(result => {
             if (result) {
                 renderData.entries = result.body;
@@ -34,9 +41,14 @@ app.get('/', function (req, response) {
         ;
 });
 
-app.post('/new-contact', (request, response) => {
-    var options = { url: '/entry', method: 'POST', body: request.body, json: true };
-    return berlioz.service('app').request(options)
+app.post('/new-contact', (req, response) => {
+    var options = {
+        url: `${process.env.BERLIOZ_CONSUMED_SERVICE_APP_URL}/entry`,
+        method: 'POST',
+        body: req.body,
+        json: true
+    };
+    return request(options)
         .then(result => {
             if (!result) {
                 return response.send({ error: 'No app peers present.' });

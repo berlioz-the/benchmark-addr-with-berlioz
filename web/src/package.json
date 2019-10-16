@@ -11,6 +11,9 @@
   "dependencies": {
     "ejs": "^2.5.8",
     "express": "^4.16.4",
-    "berlioz-sdk": "^1.0.120"
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "body-parser": "^1.19.0",
+    "promise": "^8.0.3"
   }
 }
