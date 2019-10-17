@@ -1,0 +1,20 @@
+---
+kind: policy
+name: domain-name
+target:
+    deployment: gprod
+    cluster: addr
+    name: web
+config:
+    value: addr-berlioz.example.berlioz.website
+
+---
+kind: policy
+name: tls
+target:
+    deployment: gprod
+    cluster: addr
+    name: web
+config:
+    enable: true
+    managed-certificate: true
