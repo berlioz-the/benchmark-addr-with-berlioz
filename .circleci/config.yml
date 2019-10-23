@@ -1,0 +1,24 @@
+version: 2.1
+
+jobs:
+  my_build:
+    docker:
+      - image: berliozcloud/cicd
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Get my environment
+          command: env
+      - run:
+          name: Check docker version
+          command: docker --version
+      - run:
+          name: Run Build
+          command: berlioz build
+
+workflows:
+  build:
+    jobs:
+      - my_build
+
