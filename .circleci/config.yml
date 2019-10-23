@@ -14,9 +14,6 @@ jobs:
           name: Check docker version
           command: docker --version
       - run:
-          name: Install Berlioz
-          command: npm install berlioz -g --unsave-perm
-      - run:
           name: Run Build
           command: berlioz build
 
