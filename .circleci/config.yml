@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   my_build:
     docker:
-      - image: berliozcloud/cicd
+      - image: node:10-alpine #berliozcloud/cicd
     steps:
       - checkout
       - setup_remote_docker
@@ -13,9 +13,9 @@ jobs:
       - run:
           name: Check docker version
           command: docker --version
-      - run: 
-          name: Check Berlioz Version
-          command: npm list -g berlioz
+      - run:
+          name: Install Berlioz
+          command: npm install berlioz -g --unsave-perm
       - run:
           name: Run Build
           command: berlioz build
