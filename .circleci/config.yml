@@ -1,24 +1,21 @@
 version: 2.1
 
 jobs:
-  my_build:
+  deploy_to_prod:
     docker:
       - image: berliozcloud/circleci
     steps:
       - checkout
       - setup_remote_docker
       - run:
-          name: Get my environment
-          command: env
-      - run:
-          name: Check docker version
-          command: docker --version
+          name: Berlioz Login
+          command: berlioz login --user $BERLIOZ_USER --pass $BERLIOZ_PASS
       - run:
           name: Run Build
-          command: berlioz build
+          command: berlioz deploy --deployment gprod --region us-west1-c
 
 workflows:
   build:
     jobs:
-      - my_build
+      - deploy_to_prod
 
