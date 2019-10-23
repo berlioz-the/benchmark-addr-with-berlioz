@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   my_build:
     docker:
-      - image: node:10-alpine #berliozcloud/cicd
+      - image: berliozcloud/circleci
     steps:
       - checkout
       - setup_remote_docker
