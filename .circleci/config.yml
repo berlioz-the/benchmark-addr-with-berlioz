@@ -12,7 +12,7 @@ jobs:
           command: berlioz login --user $BERLIOZ_USER --pass $BERLIOZ_PASS
       - run:
           name: Run Build
-          command: berlioz deploy --deployment gprod --region us-west1-c
+          command: berlioz deploy --deployment gprod --region us-west1-c --wait
 
 workflows:
   build:
