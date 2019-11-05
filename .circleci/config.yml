@@ -31,13 +31,15 @@ jobs:
 
 
 workflows:
+
   deploy:
     jobs:
       - deploy_to_prod
+
   undeploy:
     jobs:
       - hold:
-        type: approval
+          type: approval
       - undeploy:
-        requires: 
-          - hold
+          requires: 
+            - hold
