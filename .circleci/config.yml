@@ -20,6 +20,9 @@ jobs:
       - image: berliozcloud/circleci
     steps:
       - run:
+          name: Berlioz Login
+          command: berlioz login --user $BERLIOZ_USER --pass $BERLIOZ_PASS
+      - run:
           name: Check Status
           command: berlioz status --region us-west1-c --deployment gprod
       - run:
