@@ -1,6 +1,7 @@
 version: 2.1
 
 jobs:
+
   deploy_to_prod:
     docker:
       - image: berliozcloud/circleci
@@ -14,8 +15,29 @@ jobs:
           name: Run Build
           command: berlioz deploy --deployment gprod --region us-west1-c --wait
 
+  undeploy:
+    docker:
+      - image: berliozcloud/circleci
+    steps:
+      - run:
+          name: Check Status
+          command: berlioz status --region us-west1-c --deployment gprod
+      - run:
+          name: Undeploy
+          command: berlioz stop --region us-west1-c --deployment gprod --cluster addr
+      - run:
+          name: Wait completion
+          command: berlioz wait --region us-west1-c --deployment gprod
+
+
 workflows:
-  build:
+  deploy:
     jobs:
       - deploy_to_prod
-
+  undeploy:
+    jobs:
+      - hold:
+        type: approval
+      - undeploy:
+        requires: 
+          - hold
