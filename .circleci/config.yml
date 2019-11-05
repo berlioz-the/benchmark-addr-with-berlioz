@@ -34,7 +34,11 @@ workflows:
 
   deploy:
     jobs:
-      - deploy_to_prod
+      - hold:
+          type: approval
+      - deploy_to_prod:
+          requires: 
+            - hold
 
   undeploy:
     jobs:
